@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft — Lava Rises Event</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Ambient Background Layers -->
+    <div class="bg-void"></div>
+    <canvas id="particles"></canvas>
+    <div class="bg-gradient-orb orb-1"></div>
+    <div class="bg-gradient-orb orb-2"></div>
+    <div class="bg-gradient-orb orb-3"></div>
+    <div class="scanlines"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- Cursor Glow -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+
+    <!-- Main Content -->
+    <main class="stage">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                REGISTRATION OPEN
+            </div>
+
+            <div class="logo-wrap">
+                <div class="logo-glitch-container">
+                    <img src="Logo.png" class="logo-img" alt="Minecraft But Lava Rises">
+                    <img src="Logo.png" class="logo-img logo-glitch-r" alt="">
+                    <img src="Logo.png" class="logo-img logo-glitch-b" alt="">
+                </div>
+            </div>
+
+            <div class="hero-lava-bar"></div>
+
+            <p class="hero-desc">
+                The lava is rising. The clock is ticking. Secure your place in the most
+                <em>intense</em> Minecraft survival event of the year — fill out the form below
+                and get whitelisted before spots run out.
+            </p>
+
+            <div class="hero-stats">
+                <div class="stat-chip"><span class="stat-num" data-count="64">0</span><span class="stat-label">SPOTS LEFT</span></div>
+                <div class="stat-divider"></div>
+                <div class="stat-chip"><span class="stat-num" data-count="312">0</span><span class="stat-label">REGISTERED</span></div>
+                <div class="stat-divider"></div>
+                <div class="stat-chip"><span class="stat-num" data-count="100">0</span><span class="stat-label">LAVA SPEED %</span></div>
+            </div>
+
+            <div class="scroll-cue">
+                <div class="scroll-arrow"></div>
+                <span>Scroll to register</span>
+            </div>
+        </section>
+
+        <!-- Form Section -->
+        <section class="form-section">
+            <div class="form-container" id="mainForm">
+
+                <!-- Progress Bar -->
+                <div class="progress-wrap reveal-item">
+                    <div class="progress-label">
+                        <span>FORM PROGRESS</span>
+                        <span id="progressPct">0%</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-bar" id="progressBar"></div>
+                        <div class="progress-lava"></div>
+                    </div>
+                </div>
+
+                <!-- Step 1 - IGN -->
+                <div class="q-card reveal-item" data-step="1">
+                    <div class="q-number">01</div>
+                    <div class="q-inner">
+                        <div class="q-tag">REQUIRED</div>
+                        <label class="q-label">Minecraft In-Game Name <span class="req-star">*</span></label>
+                        <p class="q-hint">Ensure exact spelling, capitalization and symbols — used for whitelisting.</p>
+                        <div class="input-wrap">
+                            <div class="input-icon">&#9876;</div>
+                            <input type="text" class="field" id="ign" placeholder="e.g. Steve_123" autocomplete="off">
+                            <div class="input-glow"></div>
+                            <div class="input-line"></div>
+                        </div>
+                        <div class="field-error" id="ignError">Please enter your IGN.</div>
+                    </div>
+                    <div class="q-accent"></div>
+                </div>
+
+                <!-- Step 2 - Age -->
+                <div class="q-card reveal-item" data-step="2">
+                    <div class="q-number">02</div>
+                    <div class="q-inner">
+                        <div class="q-tag">REQUIRED</div>
+                        <label class="q-label">Age <span class="req-star">*</span></label>
+                        <p class="q-hint">Enter your current age.</p>
+                        <div class="input-wrap">
+                            <div class="input-icon">&#128100;</div>
+                            <input type="number" class="field" id="age" placeholder="e.g. 17" min="1" max="99">
+                            <div class="input-glow"></div>
+                            <div class="input-line"></div>
+                        </div>
+                        <div class="field-error" id="ageError">Please enter a valid age.</div>
+                    </div>
+                    <div class="q-accent"></div>
+                </div>
+
+                <!-- Step 3 - Timezone -->
+                <div class="q-card reveal-item" data-step="3">
+                    <div class="q-number">03</div>
+                    <div class="q-inner">
+                        <div class="q-tag">REQUIRED</div>
+                        <label class="q-label">Timezone <span class="req-star">*</span></label>
+                        <p class="q-hint">e.g. EST, CEST, GMT+1 — helps coordinate event timing.</p>
+                        <div class="input-wrap">
+                            <div class="input-icon">&#127758;</div>
+                            <input type="text" class="field" id="timezone" placeholder="e.g. EST" autocomplete="off">
+                            <div class="input-glow"></div>
+                            <div class="input-line"></div>
+                        </div>
+                        <div class="field-error" id="timezoneError">Please enter your timezone.</div>
+                    </div>
+                    <div class="q-accent"></div>
+                </div>
+
+                <!-- Step 4 - Subscribed -->
+                <div class="q-card reveal-item" data-step="4">
+                    <div class="q-number">04</div>
+                    <div class="q-inner">
+                        <div class="q-tag">REQUIRED</div>
+                        <label class="q-label">Are you subscribed to the YouTube channel? <span class="req-star">*</span></label>
+                        <p class="q-hint">&#128073; <a href="https://youtube.com/@mikeplaysmc?si=GbuQQaP_hqo61SQQ" target="_blank" class="hint-link">Check out the channel &rarr;</a></p>
+
+                        <div class="radio-group" id="subGroup">
+                            <label class="radio-card" data-value="yes">
+                                <input type="radio" name="subscribed" value="yes">
+                                <div class="rc-content">
+                                    <span class="rc-icon">&#9989;</span>
+                                    <div>
+                                        <div class="rc-title">Yes, I am</div>
+                                        <div class="rc-sub">Already subscribed</div>
+                                    </div>
+                                </div>
+                                <div class="rc-glow"></div>
+                            </label>
+                            <label class="radio-card" data-value="no">
+                                <input type="radio" name="subscribed" value="no">
+                                <div class="rc-content">
+                                    <span class="rc-icon">&#10060;</span>
+                                    <div>
+                                        <div class="rc-title">No, I am not</div>
+                                        <div class="rc-sub">Not yet subscribed</div>
+                                    </div>
+                                </div>
+                                <div class="rc-glow"></div>
+                            </label>
+                            <label class="radio-card" data-value="will">
+                                <input type="radio" name="subscribed" value="will">
+                                <div class="rc-content">
+                                    <span class="rc-icon">&#128293;</span>
+                                    <div>
+                                        <div class="rc-title">Not yet, but I will!</div>
+                                        <div class="rc-sub">Subscribing now</div>
+                                    </div>
+                                </div>
+                                <div class="rc-glow"></div>
+                            </label>
+                        </div>
+                        <div class="field-error" id="subError">Please select an option.</div>
+                    </div>
+                    <div class="q-accent"></div>
+                </div>
+
+                <!-- Submit -->
+                <div class="submit-zone reveal-item">
+                    <div class="submit-lore">
+                        By submitting you agree to join the event server and follow all rules.
+                        Your IGN will be whitelisted upon review.
+                    </div>
+                    <button class="btn-submit" id="submitBtn" type="button">
+                        <div class="btn-bg"></div>
+                        <span class="btn-text">
+                            <span class="btn-icon">&#127755;</span>
+                            JOIN THE EVENT
+                        </span>
+                        <div class="btn-shine"></div>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Confirmation Overlay -->
+    <div class="confirm-overlay" id="confirmOverlay">
+        <div class="confirm-box">
+            <div class="confirm-icon-wrap">
+                <div class="confirm-icon">&#127755;</div>
+                <div class="confirm-ring"></div>
+            </div>
+            <h2 class="confirm-title">YOU ARE IN.</h2>
+            <p class="confirm-sub">Registration confirmed. You will be whitelisted before the event starts.</p>
+            <div class="confirm-ign" id="confirmIgnDisplay"></div>
+            <div class="confirm-lava-bar"></div>
+            <p class="confirm-note">Check the Discord for the server IP closer to the event date. Stay ready — the lava waits for no one.</p>
+            <button class="confirm-close" id="confirmClose">CLOSE</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-line"></div>
+        <span>MINECRAFT LAVA EVENT REGISTRATION SYSTEM &middot; SECURED INTERFACE</span>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
