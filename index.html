@@ -712,7 +712,7 @@
 </div>
 
 <script>
-    // --- !! INSERT YOUR GOOGLE APPS SCRIPT WEB APP URL HERE !! ---
+    // --- !! SECURE LIVE WEB APP ROUTING MATRIX ENTRIES !! ---
     const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxA04YZW23L-4HeSw87KIHjXFVk4WLfktVd45NQuBcDpf7G9X8z-2l97848DqMl5OF3/exec";
 
     const dot = document.getElementById('custom-cursor');
@@ -903,7 +903,6 @@
     // --- CAPTURE INTERACTIVE HOVER ACTIONS ---
     function registerHoverEffects() {
         document.querySelectorAll('.interactive-target, input, textarea, button').forEach(target => {
-            // Avoid duplicate listeners
             target.removeEventListener('mouseenter', onMouseEnterTarget);
             target.removeEventListener('mouseleave', onMouseLeaveTarget);
             
@@ -1029,7 +1028,7 @@
             
             setTimeout(() => {
                 panel.style.height = 'auto';
-                registerHoverEffects(); // Refresh hooks
+                registerHoverEffects();
             }, 600);
 
         }, 400); 
@@ -1045,14 +1044,12 @@
             return;
         }
 
-        // Lock button interface items during outbound request handling
         const btnSubmit = document.getElementById('btn-submit-action');
         const btnBack = document.getElementById('btn-submit-back');
         btnSubmit.disabled = true;
         btnBack.disabled = true;
-        btnSubmit.innerText = "Transmitting Data...";
+        btnSubmit.innerText = "Transmitting Data... Please Wait.";
 
-        // Extract payload values cleanly
         const payload = {
             discordUsername: document.getElementById('form-username').value.trim(),
             preferredName: document.getElementById('form-name').value.trim(),
@@ -1062,18 +1059,10 @@
             additionalNotes: document.getElementById('form-notes').value.trim() || "N/A"
         };
 
-        if (GOOGLE_SHEET_URL === "https://script.google.com/macros/s/AKfycbxA04YZW23L-4HeSw87KIHjXFVk4WLfktVd45NQuBcDpf7G9X8z-2l97848DqMl5OF3/exec") {
-            console.log("Local Data Simulation Mode Active:", payload);
-            setTimeout(() => {
-                crossFadeEngine(5);
-            }, 1200);
-            return;
-        }
-
-        // Asynchronous structural fetch execution pipeline
+        // Asynchronous structural fetch execution pipeline via no-cors web engine route
         fetch(GOOGLE_SHEET_URL, {
             method: 'POST',
-            mode: 'no-cors', // Bypasses CORS tracking configurations safely for Web Apps
+            mode: 'no-cors', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         })
